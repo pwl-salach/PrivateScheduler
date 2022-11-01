@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        dbController = DatabaseController(getDatabasePath("internal.db"))
+        dbController = DatabaseController(this)
+        dbController.getAnyData()
     }
 }
