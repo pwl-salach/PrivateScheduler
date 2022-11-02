@@ -8,9 +8,6 @@ import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
 import com.salach.privatescheduler.db.models.*
 import java.sql.SQLException
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.KMutableProperty
-import kotlin.reflect.jvm.javaField
 
 class DatabaseHelper(
     context: Context,
@@ -19,34 +16,39 @@ class DatabaseHelper(
     databaseVersion: Int
 ) : OrmLiteSqliteOpenHelper(context, databaseName, factor, databaseVersion) {
 
-    var choreDao : Dao<Chore, Int>? = null
+    var choresDao : Dao<Chore, Int>? = null
         get(){
-            return genericGetter("choreDao", Chore::class.java)
+            field = genericSingletonGetter(field, Chore::class.java)
+            return field
         }
 
     var productsDao: Dao<Product, Int>? = null
         get(){
-            return genericGetter("productsDao", Product::class.java)
+            field = genericSingletonGetter(field, Product::class.java)
+            return field
         }
 
+    var shoppingListsDao: Dao<ShoppingList, Int>? = null
+        get(){
+            field = genericSingletonGetter(field, ShoppingList::class.java)
+            return field
+        }
 
-    private fun <T> genericGetter(field: String, ModelClass: Class<T>) : Dao<T, Int> {
-        // this is a bit slow
-        val property = this::class.memberProperties.find { it.name == field }
-        // avoids calling getter recursively
-        var dao = property?.javaField?.get(this)
-        if (dao == null){
+    var shoppingListItemsDao: Dao<ShoppingListItem, Int>? = null
+        get(){
+            field = genericSingletonGetter(field, ShoppingListItem::class.java)
+            return field
+        }
+
+    private fun <T>genericSingletonGetter(field: Dao<T, Int>?, ModelClass: Class<T>): Dao<T, Int>?{
+        if (field == null){
             try {
-                dao = getDao(ModelClass)
+                return getDao(ModelClass)
             } catch (e: SQLException){
                 e.printStackTrace()
             }
-            if (property is KMutableProperty<*>) {
-                property.setter.call(this, dao)
-
-            }
         }
-        return dao as Dao<T, Int>
+        return field
     }
 
     override fun onCreate(database: SQLiteDatabase?, connectionSource: ConnectionSource?) {
@@ -56,7 +58,7 @@ class DatabaseHelper(
         TableUtils.createTable(connectionSource, ShoppingListItem::class.java)
         val tmpChore = Chore()
         tmpChore.shortDesc = "qweqweqwee"
-        choreDao?.create(tmpChore)
+        choresDao?.create(tmpChore)
     }
 
     override fun onUpgrade(database: SQLiteDatabase?, connectionSource: ConnectionSource?, oldVersion: Int, newVersion: Int) {
