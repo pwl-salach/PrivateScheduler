@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         dbController = DatabaseController(this)
-        dbController.getAnyData()
+        var x = dbController.getUpcomingChores()
+        print(x)
     }
 }

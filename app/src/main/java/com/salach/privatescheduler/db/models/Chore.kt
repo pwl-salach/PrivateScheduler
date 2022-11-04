@@ -14,6 +14,9 @@ class Chore {
     @DatabaseField
     var shortDesc: String = ""
 
-//    @DatabaseField
-//    var cron: String = ""
+    @DatabaseField
+    var cron: String = ""
+
+    @DatabaseField
+    var priority: Int = 0
 }
