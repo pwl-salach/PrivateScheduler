@@ -10,10 +10,10 @@ class ShoppingListItem {
     @DatabaseField(generatedId = true)
     var id : Int = 0
 
-    @DatabaseField(foreign = true, foreignColumnName = "shoppingListId")
+    @DatabaseField(foreign = true, columnName = "shoppingListId", foreignColumnName = "id")
     var shoppingList : ShoppingList? = null
 
-    @DatabaseField(foreign = true, foreignColumnName = "productId")
+    @DatabaseField(foreign = true, columnName = "productId", foreignColumnName = "id")
     var product : Product? = null
 
     @DatabaseField
