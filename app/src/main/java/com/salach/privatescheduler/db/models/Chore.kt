@@ -1,22 +1,23 @@
 package com.salach.privatescheduler.db.models
 
-import com.j256.ormlite.field.DatabaseField
-import com.j256.ormlite.table.DatabaseTable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
-@DatabaseTable(tableName = "Chores")
-class Chore {
 
-    @DatabaseField(generatedId = true)
-    var id: Int = 0
-
-//    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-//    var collectionId : Int = 0
-    @DatabaseField
-    var shortDesc: String = ""
-
-    @DatabaseField
-    var cron: String = ""
-
-    @DatabaseField
-    var priority: Int = 0
-}
+@Entity(
+    foreignKeys = [ForeignKey(
+        entity = ToDoList::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("to_do_list_id"),
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+data class Chore(
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "short_desc") val shortDesc: String,
+    @ColumnInfo val cron: String,
+    @ColumnInfo val priority: Int,
+    @ColumnInfo(name= "to_do_list_id", index = true) val toDoListId: Int
+)
