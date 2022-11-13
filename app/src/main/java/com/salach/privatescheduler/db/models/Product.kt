@@ -1,16 +1,12 @@
 package com.salach.privatescheduler.db.models
 
-import com.j256.ormlite.field.DatabaseField
-import com.j256.ormlite.table.DatabaseTable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@DatabaseTable(tableName = "Products")
-class Product {
-    @DatabaseField(generatedId = true)
-    var id: Int = 0
-
-    @DatabaseField
-    var shortDesc: String = ""
-
-//    @DatabaseField(foreign = true)
-//    var category: ProductCategory
-}
+@Entity
+data class Product(
+    @PrimaryKey val id: Int,
+    @ColumnInfo val category_id: Int,
+    @ColumnInfo val name: String
+)

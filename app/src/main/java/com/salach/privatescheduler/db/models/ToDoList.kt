@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ShoppingList(
+data class ToDoList(
     @PrimaryKey val id: Int,
     @ColumnInfo val name: String
 )

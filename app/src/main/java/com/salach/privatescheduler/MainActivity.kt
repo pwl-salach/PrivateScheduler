@@ -8,15 +8,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.salach.privatescheduler.databinding.ActivityMainBinding
-import com.salach.privatescheduler.db.DatabaseController
+import com.salach.privatescheduler.db.AppDatabase
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var dbController: DatabaseController
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = AppDatabase.getInstance(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -24,6 +25,12 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+//        navController.addOnDestinationChangedListener {controller, destination, arguments ->
+//            run {
+//                val arg = NavArgument.Builder().setDefaultValue(dbController).build()
+//                destination.addArgument("dbController", arg)
+//            }
+//        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
@@ -31,8 +38,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        dbController = DatabaseController(this)
-        var x = dbController.getUpcomingChores()
-        print(x)
     }
 }
