@@ -8,5 +8,5 @@ import com.salach.privatescheduler.db.models.ToDoList
 @Dao
 interface ToDoListDao {
     @Query("SELECT * FROM ToDoList")
-    fun getAll(): LiveData<List<ToDoList>>
+    fun getAll(): List<ToDoList>
 }

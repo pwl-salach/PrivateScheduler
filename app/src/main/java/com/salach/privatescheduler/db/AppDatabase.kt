@@ -4,17 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.salach.privatescheduler.db.daos.ChoreDao
-import com.salach.privatescheduler.db.daos.ToDoListDao
+import com.salach.privatescheduler.db.daos.*
 import com.salach.privatescheduler.db.models.*
 
 
 @Database(
     entities = [
         Chore::class,
-//        Product::class,
-//        ShoppingList::class,
-//        ShoppingListItem::class,
+        Product::class,
+        ShoppingList::class,
+        ShoppingListItem::class,
         ToDoList::class
     ],
     version = 1
@@ -39,5 +38,8 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract val choreDao: ChoreDao
+    abstract val productDao: ProductDao
+    abstract val shoppingList: ShoppingListDao
+    abstract val shoppingListItemDao: ShoppingListItemDao
     abstract val toDoListDao: ToDoListDao
 }
