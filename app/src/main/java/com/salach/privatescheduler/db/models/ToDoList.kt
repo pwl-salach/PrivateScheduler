@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ToDoList(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Int?,
     @ColumnInfo val name: String
 )
