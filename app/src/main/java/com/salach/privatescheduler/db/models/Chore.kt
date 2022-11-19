@@ -15,9 +15,9 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Chore(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "short_desc") val shortDesc: String,
     @ColumnInfo val cron: String,
     @ColumnInfo val priority: Int,
-    @ColumnInfo(name= "to_do_list_id", index = true) val toDoListId: Int
+    @ColumnInfo(name= "to_do_list_id", index = true) val toDoListId: Int?
 )

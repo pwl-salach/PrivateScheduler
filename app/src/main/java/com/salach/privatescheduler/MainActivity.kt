@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = AppDatabase.getInstance(this)
+//        db = AppDatabase.getInstance(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
