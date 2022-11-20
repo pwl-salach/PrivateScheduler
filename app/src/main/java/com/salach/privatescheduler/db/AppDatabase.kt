@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.salach.privatescheduler.db.daos.*
 import com.salach.privatescheduler.db.models.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Database(
@@ -21,19 +24,24 @@ import com.salach.privatescheduler.db.models.*
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
-        @Volatile private var instance: AppDatabase? = null
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context? = null): AppDatabase {
-            return instance ?: synchronized(this) {
-                instance ?: initializeInstance(context).also { instance = it }
+        fun getInstance(context: Context, scope: CoroutineScope): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: initializeInstance(context, scope).also { INSTANCE = it }
             }
         }
 
-        private fun initializeInstance(context: Context?): AppDatabase{
-            return Room.databaseBuilder(
-                context!!.applicationContext,
-                AppDatabase::class.java, "internal.db"
-            ).build()
+        private fun initializeInstance(context: Context, scope: CoroutineScope): AppDatabase{
+            var instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "internal.db"
+                )
+            // check if dev env
+            instance = instance.addCallback(DevSetupCallback(scope))
+            return instance.build()
         }
     }
 
@@ -42,4 +50,25 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val shoppingList: ShoppingListDao
     abstract val shoppingListItemDao: ShoppingListItemDao
     abstract val toDoListDao: ToDoListDao
+
+    private class DevSetupCallback(private val scope: CoroutineScope) : Callback(){
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { appDatabase ->
+                scope.launch {
+                    appDatabase.choreDao.deleteAll()
+                    appDatabase.toDoListDao.deleteAll()
+
+                    appDatabase.toDoListDao.insertAll(
+                        ToDoList(1, "Generic")
+                    )
+                    appDatabase.choreDao.insertAll(
+                        Chore(null, "QWE", "* * * * *", 1, null),
+                        Chore(null, "ASD", "", 1, 1),
+                        Chore(null, "ZXC", "* * * * 1", 1, 1),
+                    )
+                }
+            }
+        }
+    }
 }

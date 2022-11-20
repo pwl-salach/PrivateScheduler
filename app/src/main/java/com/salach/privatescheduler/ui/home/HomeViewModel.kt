@@ -1,35 +1,35 @@
 package com.salach.privatescheduler.ui.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.salach.privatescheduler.db.AppDatabase
+import androidx.lifecycle.*
 import com.salach.privatescheduler.db.models.Chore
-import com.salach.privatescheduler.db.models.ToDoList
+import com.salach.privatescheduler.repositories.ChoreRepository
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class HomeViewModel(private val repository: ChoreRepository) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
 
-    private val _chores = MutableLiveData<List<Chore>>()
-    var chores: LiveData<List<Chore>> = AppDatabase.getInstance(getApplication()).choreDao.getAll()
+    var chores: LiveData<List<Chore>> = repository.allChores.asLiveData()
 
     fun insertDummy(){
         viewModelScope.launch {
-            val db = AppDatabase.getInstance(getApplication())
-            db.toDoListDao.insertAll(
-                ToDoList(null, "Dummy")
-            )
-            db.choreDao.insertAll(
-                Chore(null, "qwe", "asd", 1, 1),
+            repository.insert(
                 Chore(null, "qwe", "asd", 1, 1)
             )
         }
     }
+}
+
+class HomeViewModelFactory(private val repository: ChoreRepository) : ViewModelProvider.Factory{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
+            @Suppress("UNCHECKED_CAST")
+            return HomeViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
 }
