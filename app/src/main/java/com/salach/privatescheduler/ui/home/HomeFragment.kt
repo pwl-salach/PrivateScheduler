@@ -19,6 +19,7 @@ import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.databinding.FragmentHomeBinding
 import com.salach.privatescheduler.db.models.Chore
 import com.salach.privatescheduler.ui.adapters.ChoreListAdapter
+import com.salach.privatescheduler.ui.dialogs.AddChoreDialog
 
 class HomeFragment : Fragment() {
 
@@ -62,12 +63,16 @@ class HomeFragment : Fragment() {
         //
         dummyButton = binding.fab
         dummyButton!!.setOnClickListener{
-            homeViewModel.insertDummy()
+            showAddChoreDialog()
         }
 
         return root
     }
 
+    fun showAddChoreDialog(){
+        val dialog = AddChoreDialog()
+        dialog.show(childFragmentManager, "AddChoreDialog")
+    }
 //    private fun updateDisplayedList(chores: List<Chore>){
 //        choresList?.removeAllViews()
 //        for(chore in chores){
