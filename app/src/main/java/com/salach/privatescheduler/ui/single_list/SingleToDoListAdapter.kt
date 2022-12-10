@@ -31,8 +31,8 @@ class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreView
 
         init {
             icon = view.findViewById(R.id.img_icon)
-            name = view.findViewById(R.id.text_name)
-            nextOccurrence = view.findViewById(R.id.text_schedule)
+            name = view.findViewById(R.id.txt_name)
+            nextOccurrence = view.findViewById(R.id.txt_schedule)
         }
 
         fun bind(iconId: Int, shortDesc: String, cron: String){
@@ -42,7 +42,7 @@ class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreView
         }
 
         companion object {
-            fun create(parent: ViewGroup): ChoreViewHolder {
+            fun create(parent: ViewGroup) : ChoreViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.chore_row, parent, false)
                 return ChoreViewHolder(view)
             }

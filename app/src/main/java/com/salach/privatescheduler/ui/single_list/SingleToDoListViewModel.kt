@@ -2,10 +2,10 @@ package com.salach.privatescheduler.ui.single_list
 
 import androidx.lifecycle.*
 import com.salach.privatescheduler.db.models.Chore
-import com.salach.privatescheduler.repositories.ChoreRepository
+import com.salach.privatescheduler.repositories.ChoresRepository
 import kotlinx.coroutines.launch
 
-class ListViewModel(private val repository: ChoreRepository) : ViewModel() {
+class SingleToDoListViewModel(private val repository: ChoresRepository) : ViewModel() {
     var chores: LiveData<List<Chore>> = repository.allChores.asLiveData()
 
     fun insertChore(chore: Chore) = viewModelScope.launch {
@@ -13,11 +13,11 @@ class ListViewModel(private val repository: ChoreRepository) : ViewModel() {
     }
 }
 
-class ToDoListModelFactory(private val repository: ChoreRepository) : ViewModelProvider.Factory{
+class SingleToDoListModelFactory(private val repository: ChoresRepository) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(ListViewModel::class.java)){
+        if(modelClass.isAssignableFrom(SingleToDoListViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return ListViewModel(repository) as T
+            return SingleToDoListViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

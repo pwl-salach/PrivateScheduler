@@ -60,7 +60,9 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.toDoListDao.deleteAll()
 
                     appDatabase.toDoListDao.insertAll(
-                        ToDoList(1, "Generic")
+                        ToDoList(0, "Generic"),
+                        ToDoList(1, "Initial"),
+                        ToDoList(2, "Test")
                     )
                     appDatabase.choreDao.insertAll(
                         Chore(null, "QWE", "* * * * *", 1, null),
