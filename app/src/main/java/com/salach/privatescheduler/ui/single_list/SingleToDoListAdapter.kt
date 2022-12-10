@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.adapters
+package com.salach.privatescheduler.ui.single_list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import com.salach.privatescheduler.db.models.Chore
 
 
 
-class ChoreListAdapter : ListAdapter<Chore, ChoreListAdapter.ChoreViewHolder>(ChoreComparator()) {
+class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreViewHolder>(ChoreComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChoreViewHolder {
         return ChoreViewHolder.create(parent)
@@ -42,7 +42,7 @@ class ChoreListAdapter : ListAdapter<Chore, ChoreListAdapter.ChoreViewHolder>(Ch
         }
 
         companion object {
-            fun create(parent: ViewGroup): ChoreViewHolder{
+            fun create(parent: ViewGroup): ChoreViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.chore_row, parent, false)
                 return ChoreViewHolder(view)
             }

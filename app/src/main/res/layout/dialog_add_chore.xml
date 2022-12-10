@@ -23,18 +23,22 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_notifications_black_24dp" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <EditText
+            android:id="@+id/short_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <EditText
+            android:id="@+id/cron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0 12 * * 1" />
+
     </LinearLayout>
 </LinearLayout>
