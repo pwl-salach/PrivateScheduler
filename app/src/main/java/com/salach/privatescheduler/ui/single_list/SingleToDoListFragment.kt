@@ -20,8 +20,8 @@ class SingleToDoListFragment : Fragment() {
 
     private var choresList: RecyclerView? = null
     private var dummyButton: FloatingActionButton? = null
-    private val listViewModel: ListViewModel by viewModels {
-        ToDoListModelFactory((activity?.application as PrivateSchedulerApplication).repository)
+    private val viewModel: SingleToDoListViewModel by viewModels {
+        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
     }
 
     // This property is only valid between onCreateView and
@@ -41,7 +41,7 @@ class SingleToDoListFragment : Fragment() {
         val adapter = SingleToDoListAdapter()
         choresList!!.adapter = adapter
         choresList!!.layoutManager = LinearLayoutManager(activity)
-        listViewModel.chores.observe(viewLifecycleOwner, Observer { chores ->
+        viewModel.chores.observe(viewLifecycleOwner, Observer { chores ->
             chores.let{
                 adapter.submitList(it)
             }

@@ -9,10 +9,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
-import com.salach.privatescheduler.ui.single_list.ListViewModel
+import com.salach.privatescheduler.ui.single_list.SingleToDoListViewModel
 
 class AddChoreDialog : DialogFragment() {
-    private val listViewModel: ListViewModel by viewModels({requireParentFragment()})
+    private val listViewModel: SingleToDoListViewModel by viewModels({requireParentFragment()})
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return  activity?.let {

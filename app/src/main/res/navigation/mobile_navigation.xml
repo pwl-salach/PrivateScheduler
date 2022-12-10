@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.salach.privatescheduler.ui.single_list.SingleToDoListFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_single_to_do_list" />
+    app:startDestination="@+id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.salach.privatescheduler.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_lists"
         tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_lists"
+        android:name="com.salach.privatescheduler.ui.lists.ToDoListsFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_to_do_lists" />
 
     <fragment
         android:id="@+id/navigation_notifications"
