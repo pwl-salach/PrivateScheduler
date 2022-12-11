@@ -15,6 +15,7 @@ class ToDoListsFragment : Fragment() {
 
     private var _binding: FragmentToDoListsBinding? = null
     private val binding get() = _binding!!
+
     private var toDoLists: RecyclerView? = null
     private val viewModel: ToDoListsViewModel by viewModels {
         ToDoListsModelFactory((activity?.application as PrivateSchedulerApplication).toDoListsRepository)
@@ -25,8 +26,9 @@ class ToDoListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentToDoListsBinding.inflate(inflater, container, false)
-        val adapter = ToDoListsAdapter()
+
         toDoLists = binding.toDoLists
+        val adapter = ToDoListsAdapter()
         toDoLists!!.adapter = adapter
         toDoLists!!.layoutManager = LinearLayoutManager(activity)
         viewModel.toDoLists.observe(viewLifecycleOwner) { toDoLists ->
