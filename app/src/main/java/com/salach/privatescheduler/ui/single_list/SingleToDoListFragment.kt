@@ -17,16 +17,16 @@ import com.salach.privatescheduler.ui.dialogs.AddChoreDialog
 class SingleToDoListFragment : Fragment() {
 
     private var _binding: FragmentSingleToDoListBinding? = null
-
-    private var choresList: RecyclerView? = null
-    private var dummyButton: FloatingActionButton? = null
-    private val viewModel: SingleToDoListViewModel by viewModels {
-        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
-    }
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var choresList: RecyclerView? = null
+    private val viewModel: SingleToDoListViewModel by viewModels {
+        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
+    }
+    private var dummyButton: FloatingActionButton? = null
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -56,7 +56,7 @@ class SingleToDoListFragment : Fragment() {
         return root
     }
 
-    fun showAddChoreDialog(){
+    private fun showAddChoreDialog(){
         val dialog = AddChoreDialog()
         dialog.show(childFragmentManager, "AddChoreDialog")
     }
@@ -64,9 +64,5 @@ class SingleToDoListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun getUpcomingChores() {
-
     }
 }
