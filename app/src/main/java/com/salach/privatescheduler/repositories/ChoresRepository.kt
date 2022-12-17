@@ -7,6 +7,10 @@ import kotlinx.coroutines.flow.Flow
 class ChoresRepository(private val choreDao: ChoreDao) {
     val allChores: Flow<List<Chore>> = choreDao.getAll()
 
+    fun getChildChores(parentId: Int): Flow<List<Chore>>{
+        return choreDao.getAllForList(parentId)
+    }
+
     suspend fun insert(vararg chore: Chore){
         choreDao.insertAll(*chore)
     }

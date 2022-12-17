@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,10 +22,12 @@ class SingleToDoListFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private var listId = 0
     private var choresList: RecyclerView? = null
-    private val viewModel: SingleToDoListViewModel by viewModels {
-        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
-    }
+    private var viewModel: SingleToDoListViewModel? = null
+//    by viewModels {
+//        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
+//    }
     private var dummyButton: FloatingActionButton? = null
 
 
@@ -34,6 +37,7 @@ class SingleToDoListFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
+
         _binding = FragmentSingleToDoListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -41,13 +45,20 @@ class SingleToDoListFragment : Fragment() {
         val adapter = SingleToDoListAdapter()
         choresList!!.adapter = adapter
         choresList!!.layoutManager = LinearLayoutManager(activity)
-        viewModel.chores.observe(viewLifecycleOwner, Observer { chores ->
+
+        listId = arguments?.getInt("listId")!!
+
+        viewModel = ViewModelProvider(this,
+            SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository,
+                listId
+            )
+        ).get(SingleToDoListViewModel::class.java)
+        viewModel!!.chores.observe(viewLifecycleOwner, Observer { chores ->
             chores.let{
                 adapter.submitList(it)
             }
         })
 
-        //
         dummyButton = binding.fab
         dummyButton!!.setOnClickListener{
             showAddChoreDialog()
@@ -57,7 +68,7 @@ class SingleToDoListFragment : Fragment() {
     }
 
     private fun showAddChoreDialog(){
-        val dialog = AddChoreDialog()
+        val dialog = AddChoreDialog(listId)
         dialog.show(childFragmentManager, "AddChoreDialog")
     }
 

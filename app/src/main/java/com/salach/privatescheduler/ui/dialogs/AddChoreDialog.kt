@@ -11,7 +11,7 @@ import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
 import com.salach.privatescheduler.ui.single_list.SingleToDoListViewModel
 
-class AddChoreDialog : DialogFragment() {
+class AddChoreDialog(private val listId: Int) : DialogFragment() {
     private val listViewModel: SingleToDoListViewModel by viewModels({requireParentFragment()})
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -26,7 +26,7 @@ class AddChoreDialog : DialogFragment() {
                         shortDesc = view.findViewById<TextView>(R.id.short_desc).text.toString(),
                         cron = view.findViewById<TextView>(R.id.cron).text.toString(),
                         priority = 0,
-                        toDoListId = null
+                        toDoListId = listId
                     )
                     listViewModel.insertChore(chore)
                 })
