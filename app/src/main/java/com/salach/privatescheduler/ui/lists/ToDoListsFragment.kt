@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
+import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
+import com.salach.privatescheduler.ui.single_list.SingleToDoListFragment
 
 class ToDoListsFragment : Fragment() {
 
@@ -29,6 +31,16 @@ class ToDoListsFragment : Fragment() {
 
         toDoLists = binding.toDoLists
         val adapter = ToDoListsAdapter()
+        adapter.setOnItemClickListener(object: ToDoListsAdapter.OnItemClickListener{
+            override fun onItemClick(id: Int) {
+                val transaction = childFragmentManager.beginTransaction()
+                val fragment = SingleToDoListFragment()
+                transaction.add(R.id.container, fragment)
+                transaction.commit()
+
+                print(id)
+            }
+        })
         toDoLists!!.adapter = adapter
         toDoLists!!.layoutManager = LinearLayoutManager(activity)
         viewModel.toDoLists.observe(viewLifecycleOwner) { toDoLists ->
