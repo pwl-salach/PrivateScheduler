@@ -14,6 +14,15 @@ import com.salach.privatescheduler.db.models.ToDoList
 
 
 class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()) {
+    private var listener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(id: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
         return ToDoListViewHolder.create(parent)
@@ -22,6 +31,11 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current.id, R.drawable.ic_notifications_black_24dp, current.name)
+        if(current.id != null && listener != null){
+            holder.itemView.setOnClickListener{
+                listener!!.onItemClick(current.id)
+            }
+        }
     }
 
     class ToDoListViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -40,7 +54,6 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
             name.text = shortDesc
             if ( id != null){
                 edit.setOnClickListener({
-
                 })
             }
         }
