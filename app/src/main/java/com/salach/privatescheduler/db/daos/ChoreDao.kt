@@ -11,6 +11,9 @@ interface ChoreDao {
     @Query("SELECT * FROM Chore")
     fun getAll(): Flow<List<Chore>>
 
+    @Query("SELECT * FROM Chore WHERE to_do_list_id = :listId")
+    fun getAllForList(listId: Int): Flow<List<Chore>>
+
     @Insert
     suspend fun insertAll(vararg chores: Chore)
 

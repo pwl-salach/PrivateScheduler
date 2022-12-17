@@ -19,7 +19,16 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.salach.privatescheduler.ui.single_list.SingleToDoListFragment"
+        android:name="com.salach.privatescheduler.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_single_to_do_list" />
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/single_to_do_list_fragment"
+        android:name="com.salach.privatescheduler.ui.single_list.SingleToDoListFragment"
+        android:label="fragment_single_to_do_list"
+        tools:layout="@layout/fragment_single_to_do_list" >
+        <argument
+            android:name="listId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

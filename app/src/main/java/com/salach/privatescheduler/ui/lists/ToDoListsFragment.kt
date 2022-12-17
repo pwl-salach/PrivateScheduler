@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
@@ -33,12 +34,9 @@ class ToDoListsFragment : Fragment() {
         val adapter = ToDoListsAdapter()
         adapter.setOnItemClickListener(object: ToDoListsAdapter.OnItemClickListener{
             override fun onItemClick(id: Int) {
-                val transaction = childFragmentManager.beginTransaction()
-                val fragment = SingleToDoListFragment()
-                transaction.add(R.id.container, fragment)
-                transaction.commit()
-
-                print(id)
+                val args = Bundle()
+                args.putInt("listId", id)
+                findNavController().navigate(R.id.single_to_do_list_fragment)
             }
         })
         toDoLists!!.adapter = adapter
