@@ -12,16 +12,22 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_lists"
-        android:name="com.salach.privatescheduler.ui.lists.ToDoListsFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_to_do_lists" />
-
-    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.salach.privatescheduler.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_lists"
+        android:name="com.salach.privatescheduler.ui.lists.ToDoListsFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_to_do_lists" >
+        <action
+            android:id="@+id/action_navigation_lists_to_single_to_do_list_fragment"
+            app:destination="@id/single_to_do_list_fragment"
+            app:popUpTo="@id/navigation_lists" />
+    </fragment>
+
     <fragment
         android:id="@+id/single_to_do_list_fragment"
         android:name="com.salach.privatescheduler.ui.single_list.SingleToDoListFragment"

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
-import com.salach.privatescheduler.ui.single_list.SingleToDoListFragment
+
 
 class ToDoListsFragment : Fragment() {
 
@@ -36,7 +36,7 @@ class ToDoListsFragment : Fragment() {
             override fun onItemClick(id: Int) {
                 val args = Bundle()
                 args.putInt("listId", id)
-                findNavController().navigate(R.id.single_to_do_list_fragment)
+                findNavController().navigate(R.id.action_navigation_lists_to_single_to_do_list_fragment, args)
             }
         })
         toDoLists!!.adapter = adapter
