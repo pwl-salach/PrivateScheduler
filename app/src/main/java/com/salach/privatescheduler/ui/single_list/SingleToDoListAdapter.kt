@@ -3,7 +3,7 @@ package com.salach.privatescheduler.ui.single_list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,22 +21,22 @@ class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreView
 
     override fun onBindViewHolder(holder: ChoreViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(R.drawable.ic_notifications_black_24dp, current.shortDesc, current.cron)
+        holder.bind(current.done, current.shortDesc, current.cron)
     }
 
     class ChoreViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val icon: ImageView
+        val done: CheckBox
         val name: TextView
         val nextOccurrence: TextView
 
         init {
-            icon = view.findViewById(R.id.img_icon)
+            done = view.findViewById(R.id.chb_done)
             name = view.findViewById(R.id.txt_name)
             nextOccurrence = view.findViewById(R.id.txt_schedule)
         }
 
-        fun bind(iconId: Int, shortDesc: String, cron: String){
-            icon.setImageResource(iconId)
+        fun bind(isDone: Boolean, shortDesc: String, cron: String){
+            done.isChecked = isDone
             name.text = shortDesc
             nextOccurrence.text = cron
         }

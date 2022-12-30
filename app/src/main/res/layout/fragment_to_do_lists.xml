@@ -8,7 +8,7 @@
     tools:context=".ui.lists.ToDoListsFragment">
 
     <EditText
-        android:id="@+id/search_bar"
+        android:id="@+id/input_search_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -20,33 +20,33 @@
 
 
     <Button
-        android:id="@+id/marker_filter_btn"
+        android:id="@+id/btn_marker_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="137dp"
         android:layout_marginRight="137dp"
         android:text="Marker"
-        app:layout_constraintBaseline_toBaselineOf="@+id/colour_filter_btn"
-        app:layout_constraintEnd_toStartOf="@+id/bate_filter_btn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_colour_filter"
+        app:layout_constraintEnd_toStartOf="@+id/btn_bate_filter"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/colour_filter_btn"
+        android:id="@+id/btn_colour_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Colour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/input_search_bar" />
 
     <Button
-        android:id="@+id/bate_filter_btn"
+        android:id="@+id/btn_bate_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/colour_filter_btn"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_colour_filter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/marker_filter_btn" />
+        app:layout_constraintStart_toEndOf="@+id/btn_marker_filter" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -54,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/marker_filter_btn"
+        app:layout_constraintTop_toBottomOf="@+id/btn_marker_filter"
         tools:listitem="@layout/to_do_list_row" />
 </androidx.constraintlayout.widget.ConstraintLayout>

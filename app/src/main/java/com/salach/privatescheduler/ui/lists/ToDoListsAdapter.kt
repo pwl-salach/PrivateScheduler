@@ -3,9 +3,7 @@ package com.salach.privatescheduler.ui.lists
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +11,22 @@ import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.ToDoList
 
 
-class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()) {
+class ToDoListsAdapter(private val data: List<ToDoList>) : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()),
+    Filterable {
     private var listener: OnItemClickListener? = null
+
+    var filteredData: List<ToDoList>
+        get() = _filteredData
+        set(value) {
+            _filteredData = value
+            notifyDataSetChanged()
+        }
+    private var _filteredData = data
+    private lateinit var filter: Filter
+
+    fun getData(): List<ToDoList>{
+        return data
+    }
 
     interface OnItemClickListener {
         fun onItemClick(id: Int)
@@ -22,6 +34,13 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
 
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         this.listener = listener
+    }
+
+    override fun getFilter(): Filter {
+        if(!::filter.isInitialized){
+            filter = ToDoListsSearchFilter(this)
+        }
+        return filter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
@@ -66,7 +85,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
     }
 
-    class ToDoListComparator : DiffUtil.ItemCallback<ToDoList>(){
+    class ToDoListComparator : DiffUtil.ItemCallback<ToDoList>() {
         override fun areItemsTheSame(oldItem: ToDoList, newItem: ToDoList): Boolean {
             return oldItem == newItem
         }
@@ -75,5 +94,4 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
             return oldItem.id == newItem.id
         }
     }
-
 }
