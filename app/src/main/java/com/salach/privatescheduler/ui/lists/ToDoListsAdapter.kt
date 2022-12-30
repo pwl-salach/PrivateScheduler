@@ -3,9 +3,7 @@ package com.salach.privatescheduler.ui.lists
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +11,38 @@ import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.ToDoList
 
 
-class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()) {
+class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()),
+    Filterable {
     private var listener: OnItemClickListener? = null
 
+    private var data : List<ToDoList> = emptyList()
+    private var filteredData: List<ToDoList> = emptyList()
+    private lateinit var searchFilter: Filter
+
+    // --- Required to enable filtering ---
+    override fun getItemCount(): Int {
+        return filteredData.size
+    }
+
+    override fun getItem(position: Int): ToDoList {
+        return filteredData[position]
+    }
+
+    fun updateData(toDoList: List<ToDoList>){
+        data = toDoList
+        filteredData = toDoList
+        submitList(toDoList)
+    }
+
+    override fun getFilter(): Filter {
+        if(!::searchFilter.isInitialized){
+            searchFilter = ToDoListsSearchFilter()
+        }
+        return searchFilter
+    }
+    // === Required to enable filtering ===
+
+    // --- Opening of child view ---
     interface OnItemClickListener {
         fun onItemClick(id: Int)
     }
@@ -23,13 +50,16 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         this.listener = listener
     }
+    // === Opening of child view ===
 
+
+    // --- Rows rendering ---
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
         return ToDoListViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
-        val current = getItem(position)
+        val current = filteredData[position]
         holder.bind(current.id, R.drawable.ic_notifications_black_24dp, current.name)
         if(current.id != null && listener != null){
             holder.itemView.setOnClickListener{
@@ -53,8 +83,8 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
             icon.setImageResource(iconId)
             name.text = shortDesc
             if ( id != null){
-                edit.setOnClickListener({
-                })
+                //
+                edit.setOnClickListener({})
             }
         }
 
@@ -66,7 +96,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
     }
 
-    class ToDoListComparator : DiffUtil.ItemCallback<ToDoList>(){
+    class ToDoListComparator : DiffUtil.ItemCallback<ToDoList>() {
         override fun areItemsTheSame(oldItem: ToDoList, newItem: ToDoList): Boolean {
             return oldItem == newItem
         }
@@ -76,4 +106,28 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
     }
 
+    // === Rows rendering ===
+
+    // --- Rows filtering ---
+    inner class ToDoListsSearchFilter : Filter() {
+
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val results = FilterResults()
+            filteredData = if(constraint.isNullOrEmpty()) {
+                data
+            } else {
+                data.filter { it.name.contains(constraint, ignoreCase = true) }
+            }
+            results.values = filteredData
+            return results
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            filteredData = results?.values as List<ToDoList> ?: emptyList()
+            notifyDataSetChanged()
+        }
+    }
+
+    // === Rows filtering ===
 }

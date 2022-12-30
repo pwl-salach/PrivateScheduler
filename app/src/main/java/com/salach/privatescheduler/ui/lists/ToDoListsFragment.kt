@@ -1,6 +1,8 @@
 package com.salach.privatescheduler.ui.lists
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
+import com.salach.privatescheduler.db.models.ToDoList
 
 
 class ToDoListsFragment : Fragment() {
@@ -43,9 +46,19 @@ class ToDoListsFragment : Fragment() {
         toDoLists!!.layoutManager = LinearLayoutManager(activity)
         viewModel.toDoLists.observe(viewLifecycleOwner) { toDoLists ->
             toDoLists.let {
-                adapter.submitList(it)
+                adapter.updateData(it)
             }
         }
+        val searchBar = binding.inputSearchBar
+        searchBar.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter.filter.filter(sequence)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
         return binding.root
     }
 

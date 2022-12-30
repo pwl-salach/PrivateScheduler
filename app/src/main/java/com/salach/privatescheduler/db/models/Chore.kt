@@ -19,5 +19,6 @@ data class Chore(
     @ColumnInfo(name = "short_desc") val shortDesc: String,
     @ColumnInfo val cron: String,
     @ColumnInfo val priority: Int,
-    @ColumnInfo(name= "to_do_list_id", index = true) val toDoListId: Int?
+    @ColumnInfo(name= "to_do_list_id", index = true) val toDoListId: Int?,
+    @ColumnInfo val done: Boolean = false,
 )

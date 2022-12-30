@@ -8,8 +8,8 @@ import com.salach.privatescheduler.db.models.ToDoList
 import com.salach.privatescheduler.repositories.ToDoListsRepository
 
 
-class ToDoListsViewModel(private val repository: ToDoListsRepository) : ViewModel() {
-    var toDoLists: LiveData<List<ToDoList>> = repository.allToDoLists.asLiveData()
+class ToDoListsViewModel(repository: ToDoListsRepository) : ViewModel() {
+    val toDoLists: LiveData<List<ToDoList>> = repository.allToDoLists.asLiveData()
 }
 
 
