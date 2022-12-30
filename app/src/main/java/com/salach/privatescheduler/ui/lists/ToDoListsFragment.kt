@@ -34,7 +34,7 @@ class ToDoListsFragment : Fragment() {
         _binding = FragmentToDoListsBinding.inflate(inflater, container, false)
 
         toDoLists = binding.toDoLists
-        val adapter = ToDoListsAdapter(viewModel.toDoLists.value ?: emptyList<ToDoList>())
+        val adapter = ToDoListsAdapter()
         adapter.setOnItemClickListener(object: ToDoListsAdapter.OnItemClickListener{
             override fun onItemClick(id: Int) {
                 val args = Bundle()
@@ -46,7 +46,7 @@ class ToDoListsFragment : Fragment() {
         toDoLists!!.layoutManager = LinearLayoutManager(activity)
         viewModel.toDoLists.observe(viewLifecycleOwner) { toDoLists ->
             toDoLists.let {
-                adapter.submitList(it)
+                adapter.updateData(it)
             }
         }
         val searchBar = binding.inputSearchBar
