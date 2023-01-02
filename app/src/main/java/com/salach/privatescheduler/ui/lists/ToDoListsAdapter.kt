@@ -18,6 +18,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
     private var data : List<ToDoList> = emptyList()
     private var filteredData: List<ToDoList> = emptyList()
     private lateinit var searchFilter: Filter
+    private lateinit var iconFilter: Filter
 
     // --- Required to enable filtering ---
     override fun getItemCount(): Int {
@@ -40,6 +41,13 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
         return searchFilter
     }
+
+    fun getIconFilter(): Filter {
+        if(!::iconFilter.isInitialized){
+            iconFilter = ToDoListsIconFilter()
+        }
+        return iconFilter
+    }
     // === Required to enable filtering ===
 
     // --- Opening of child view ---
@@ -60,7 +68,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
 
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         val current = filteredData[position]
-        holder.bind(current.id, R.drawable.ic_notifications_black_24dp, current.name)
+        holder.bind(current.id, current.iconShape, current.name)
         if(current.id != null && listener != null){
             holder.itemView.setOnClickListener{
                 listener!!.onItemClick(current.id)
@@ -129,5 +137,23 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
     }
 
+    inner class ToDoListsIconFilter : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val results = FilterResults()
+            filteredData = if(constraint.isNullOrEmpty()){
+                data
+            } else {
+                data.filter { it.iconShape == constraint.toString().toInt() }
+            }
+            results.values = filteredData
+            return results
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            filteredData = results?.values as List<ToDoList> ?: emptyList()
+            notifyDataSetChanged()
+        }
+    }
     // === Rows filtering ===
 }
