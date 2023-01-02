@@ -25,9 +25,6 @@ class SingleToDoListFragment : Fragment() {
     private var listId = 0
     private var choresList: RecyclerView? = null
     private var viewModel: SingleToDoListViewModel? = null
-//    by viewModels {
-//        SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository)
-//    }
     private var dummyButton: FloatingActionButton? = null
 
 
