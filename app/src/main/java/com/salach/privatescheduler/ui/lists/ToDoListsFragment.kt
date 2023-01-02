@@ -71,12 +71,20 @@ class ToDoListsFragment : Fragment() {
                         R.drawable.ic_notifications_black_24dp,
                         R.drawable.ic_home_black_24dp,
                         com.google.android.material.R.drawable.ic_clock_black_24dp,
-                        com.google.android.material.R.drawable.ic_keyboard_black_24dp
+                        com.google.android.material.R.drawable.ic_keyboard_black_24dp,
+                        com.google.android.material.R.drawable.abc_ic_menu_share_mtrl_alpha,
+                        com.google.android.material.R.drawable.abc_ic_search_api_material,
+                        com.google.android.material.R.drawable.abc_switch_thumb_material,
+                        R.drawable.ic_invisible
                     )
                 )
                 popup.setOnItemClickListener(object: OnItemClickListener{
                     override fun onItemClick(id: Int) {
-                        adapter.getIconFilter().filter(id.toString())
+                        if(id == R.drawable.ic_invisible){
+                            adapter.getIconFilter().filter(null)
+                        } else {
+                            adapter.getIconFilter().filter(id.toString())
+                        }
                         popup.dismiss()
                     }
                 })
