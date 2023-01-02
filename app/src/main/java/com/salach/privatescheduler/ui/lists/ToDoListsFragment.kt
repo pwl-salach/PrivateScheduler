@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
-import com.salach.privatescheduler.db.models.ToDoList
+import com.salach.privatescheduler.ui.popups.IconPickerPopup
 
 
 class ToDoListsFragment : Fragment() {
@@ -59,6 +59,14 @@ class ToDoListsFragment : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {}
         })
+
+        val markerFilterButton = binding.btnMarkerFilter
+        markerFilterButton.setOnClickListener {
+            if(context != null){
+                val popup = IconPickerPopup(context, markerFilterButton, listOf(R.drawable.ic_notifications_black_24dp, R.drawable.ic_home_black_24dp))
+                popup.show()
+            }
+        }
         return binding.root
     }
 
