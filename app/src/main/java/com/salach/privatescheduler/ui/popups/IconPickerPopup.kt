@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.salach.privatescheduler.R
+import com.salach.privatescheduler.ui.lists.ToDoListsAdapter
+import com.salach.privatescheduler.ui.utils.OnItemClickListener
 
 
 class IconPickerPopup(context: Context?, private val anchor: View, icons: List<Int>) {
     private val popupWindow: PopupWindow
-    private val recyclerView: RecyclerView
+    private val adapter: IconPickerAdapter
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -31,15 +33,21 @@ class IconPickerPopup(context: Context?, private val anchor: View, icons: List<I
         // Set the background and dismiss listener for the popup window
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.LTGRAY))
         popupWindow.setOutsideTouchable(true)
-//        popupWindow.setOnDismissListener {
+        // not sure if needed
+        // popupWindow.setOnDismissListener {
             // Do something when the popup window is dismissed
-//        }
+        // }
 
         // Set up the RecyclerView for displaying the icons
-        recyclerView = iconPickerView.findViewById(R.id.recycler_view)
+        val recyclerView = iconPickerView.findViewById<RecyclerView>(R.id.recycler_view)
         val layoutManager = GridLayoutManager(context, 4)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = IconPickerAdapter(icons)
+        adapter = IconPickerAdapter(icons)
+        recyclerView.adapter = adapter
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        this.adapter.setOnItemClickListener(listener)
     }
 
     fun show() {
@@ -52,6 +60,11 @@ class IconPickerPopup(context: Context?, private val anchor: View, icons: List<I
 }
 
 class IconPickerAdapter(private val icons: List<Int>): ListAdapter<Int, IconPickerAdapter.IconViewHolder>(IconComparator()){
+    private var listener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        this.listener = listener
+    }
 
     override fun getItemCount(): Int {
         return icons.size
@@ -59,12 +72,18 @@ class IconPickerAdapter(private val icons: List<Int>): ListAdapter<Int, IconPick
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_icon, parent, false)
+        view.setOnClickListener {  }
         return IconViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
-        val icon = icons[position]
-        holder.icon.setImageResource(icon)
+        val iconId = icons[position]
+        holder.icon.setImageResource(iconId)
+        if(listener != null){
+            holder.icon.setOnClickListener{
+                listener!!.onItemClick(iconId)
+            }
+        }
     }
 
     class IconViewHolder(view: View) : ViewHolder(view){

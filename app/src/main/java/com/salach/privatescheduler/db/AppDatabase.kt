@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.daos.*
 import com.salach.privatescheduler.db.models.*
 import kotlinx.coroutines.CoroutineScope
@@ -60,9 +61,9 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.toDoListDao.deleteAll()
 
                     appDatabase.toDoListDao.insertAll(
-                        ToDoList(0, "Generic"),
-                        ToDoList(1, "Initial"),
-                        ToDoList(2, "Test")
+                        ToDoList(0, "Generic", R.drawable.ic_home_black_24dp, 0),
+                        ToDoList(1, "Initial", R.drawable.ic_home_black_24dp, 0),
+                        ToDoList(2, "Test", R.drawable.ic_notifications_black_24dp, 0)
                     )
                     appDatabase.choreDao.insertAll(
                         Chore(null, "QWE", "* * * * *", 1, null),
