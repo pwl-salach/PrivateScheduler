@@ -15,6 +15,7 @@ import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
 import com.salach.privatescheduler.ui.popups.IconPickerPopup
+import com.salach.privatescheduler.ui.utils.OnItemClickListener
 
 
 class ToDoListsFragment : Fragment() {
@@ -63,7 +64,22 @@ class ToDoListsFragment : Fragment() {
         val markerFilterButton = binding.btnMarkerFilter
         markerFilterButton.setOnClickListener {
             if(context != null){
-                val popup = IconPickerPopup(context, markerFilterButton, listOf(R.drawable.ic_notifications_black_24dp, R.drawable.ic_home_black_24dp))
+                val popup = IconPickerPopup(
+                    context,
+                    markerFilterButton,
+                    listOf(
+                        R.drawable.ic_notifications_black_24dp,
+                        R.drawable.ic_home_black_24dp,
+                        com.google.android.material.R.drawable.ic_clock_black_24dp,
+                        com.google.android.material.R.drawable.ic_keyboard_black_24dp
+                    )
+                )
+                popup.setOnItemClickListener(object: OnItemClickListener{
+                    override fun onItemClick(id: Int) {
+                        adapter.getIconFilter().filter(id.toString())
+                        popup.dismiss()
+                    }
+                })
                 popup.show()
             }
         }
