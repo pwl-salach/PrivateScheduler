@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.databinding.FragmentToDoListsBinding
+import com.salach.privatescheduler.enums.ListIcon
 import com.salach.privatescheduler.ui.popups.IconPickerPopup
 import com.salach.privatescheduler.ui.utils.OnItemClickListener
 
@@ -67,16 +68,7 @@ class ToDoListsFragment : Fragment() {
                 val popup = IconPickerPopup(
                     context,
                     markerFilterButton,
-                    listOf(
-                        R.drawable.ic_notifications_black_24dp,
-                        R.drawable.ic_home_black_24dp,
-                        com.google.android.material.R.drawable.ic_clock_black_24dp,
-                        com.google.android.material.R.drawable.ic_keyboard_black_24dp,
-                        com.google.android.material.R.drawable.abc_ic_menu_share_mtrl_alpha,
-                        com.google.android.material.R.drawable.abc_ic_search_api_material,
-                        com.google.android.material.R.drawable.abc_switch_thumb_material,
-                        R.drawable.ic_invisible
-                    )
+                    ListIcon.getValues() + R.drawable.ic_invisible
                 )
                 popup.setOnItemClickListener(object: OnItemClickListener{
                     override fun onItemClick(id: Int) {
