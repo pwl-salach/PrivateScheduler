@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_lists"
-        android:name="com.salach.privatescheduler.ui.lists.ToDoListsFragment"
+        android:name="com.salach.privatescheduler.ui.notes_list.NotesListFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_to_do_lists" >
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/single_to_do_list_fragment"
-        android:name="com.salach.privatescheduler.ui.single_list.SingleToDoListFragment"
+        android:name="com.salach.privatescheduler.ui.note.NoteFragment"
         android:label="fragment_single_to_do_list"
         tools:layout="@layout/fragment_single_to_do_list" >
         <argument

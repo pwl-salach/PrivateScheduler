@@ -8,7 +8,7 @@ class ChoresRepository(private val choreDao: ChoreDao) {
     val allChores: Flow<List<Chore>> = choreDao.getAll()
 
     fun getChildChores(parentId: Int): Flow<List<Chore>>{
-        return choreDao.getAllForList(parentId)
+        return choreDao.getAllFromNote(parentId)
     }
 
     suspend fun insert(vararg chore: Chore){

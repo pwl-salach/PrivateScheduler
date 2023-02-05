@@ -9,10 +9,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
-import com.salach.privatescheduler.ui.single_list.SingleToDoListViewModel
+import com.salach.privatescheduler.ui.note.NoteViewModel
 
 class AddChoreDialog(private val listId: Int) : DialogFragment() {
-    private val listViewModel: SingleToDoListViewModel by viewModels({requireParentFragment()})
+    private val listViewModel: NoteViewModel by viewModels({requireParentFragment()})
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return  activity?.let {
@@ -22,11 +22,8 @@ class AddChoreDialog(private val listId: Int) : DialogFragment() {
             builder.setView(view)
                 .setPositiveButton(R.string.create, DialogInterface.OnClickListener { dialog, id ->
                     val chore = Chore(
-                        id = null,
                         shortDesc = view.findViewById<TextView>(R.id.short_desc).text.toString(),
-                        cron = view.findViewById<TextView>(R.id.cron).text.toString(),
-                        priority = 0,
-                        toDoListId = listId
+                        noteId = listId
                     )
                     listViewModel.insertChore(chore)
                 })

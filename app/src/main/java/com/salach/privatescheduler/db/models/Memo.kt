@@ -14,9 +14,8 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class Chore(
+data class Memo(
+    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val text: String,
     @ColumnInfo(index = true) val noteId: Int,
-    @ColumnInfo val shortDesc: String,
-    @ColumnInfo val done: Boolean = false,
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
 )

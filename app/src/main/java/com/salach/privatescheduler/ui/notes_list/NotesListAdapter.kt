@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.lists
+package com.salach.privatescheduler.ui.notes_list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.salach.privatescheduler.R
-import com.salach.privatescheduler.db.models.ToDoList
+import com.salach.privatescheduler.db.models.Note
 
 
-class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHolder>(ToDoListComparator()),
+class NotesListAdapter : ListAdapter<Note, NotesListAdapter.ToDoListViewHolder>(ToDoListComparator()),
     Filterable {
     private var listener: OnItemClickListener? = null
 
-    private var data : List<ToDoList> = emptyList()
-    private var filteredData: List<ToDoList> = emptyList()
+    private var data : List<Note> = emptyList()
+    private var filteredData: List<Note> = emptyList()
     private lateinit var searchFilter: Filter
     private lateinit var iconFilter: Filter
 
@@ -25,14 +25,14 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         return filteredData.size
     }
 
-    override fun getItem(position: Int): ToDoList {
+    override fun getItem(position: Int): Note {
         return filteredData[position]
     }
 
-    fun updateData(toDoList: List<ToDoList>){
-        data = toDoList
-        filteredData = toDoList
-        submitList(toDoList)
+    fun updateData(note: List<Note>){
+        data = note
+        filteredData = note
+        submitList(note)
     }
 
     override fun getFilter(): Filter {
@@ -104,12 +104,12 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
         }
     }
 
-    class ToDoListComparator : DiffUtil.ItemCallback<ToDoList>() {
-        override fun areItemsTheSame(oldItem: ToDoList, newItem: ToDoList): Boolean {
+    class ToDoListComparator : DiffUtil.ItemCallback<Note>() {
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ToDoList, newItem: ToDoList): Boolean {
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -132,7 +132,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
 
         @Suppress("UNCHECKED_CAST")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            filteredData = results?.values as List<ToDoList> ?: emptyList()
+            filteredData = results?.values as List<Note> ?: emptyList()
             notifyDataSetChanged()
         }
     }
@@ -151,7 +151,7 @@ class ToDoListsAdapter : ListAdapter<ToDoList, ToDoListsAdapter.ToDoListViewHold
 
         @Suppress("UNCHECKED_CAST")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            filteredData = results?.values as List<ToDoList> ?: emptyList()
+            filteredData = results?.values as List<Note> ?: emptyList()
             notifyDataSetChanged()
         }
     }

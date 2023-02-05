@@ -1,15 +1,17 @@
-package com.salach.privatescheduler.ui.lists
+package com.salach.privatescheduler.ui.notes_list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import com.salach.privatescheduler.db.models.ToDoList
+import androidx.lifecycle.*
+import com.salach.privatescheduler.db.models.Note
 import com.salach.privatescheduler.repositories.ToDoListsRepository
+import kotlinx.coroutines.launch
 
 
-class ToDoListsViewModel(repository: ToDoListsRepository) : ViewModel() {
-    val toDoLists: LiveData<List<ToDoList>> = repository.allToDoLists.asLiveData()
+class ToDoListsViewModel(private val repository: ToDoListsRepository) : ViewModel() {
+    val toDoLists: LiveData<List<Note>> = repository.allToDoLists.asLiveData()
+
+    fun insertList(list: Note) = viewModelScope.launch {
+        repository.insert(list)
+    }
 }
 
 

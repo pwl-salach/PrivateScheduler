@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
         Product::class,
         ShoppingList::class,
         ShoppingListItem::class,
-        ToDoList::class
+        Note::class
     ],
     version = 1
 )
@@ -50,7 +50,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
     abstract val shoppingList: ShoppingListDao
     abstract val shoppingListItemDao: ShoppingListItemDao
-    abstract val toDoListDao: ToDoListDao
+    abstract val noteDao: NoteDao
 
     private class DevSetupCallback(private val scope: CoroutineScope) : Callback(){
         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -58,17 +58,18 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE?.let { appDatabase ->
                 scope.launch {
                     appDatabase.choreDao.deleteAll()
-                    appDatabase.toDoListDao.deleteAll()
+                    appDatabase.noteDao.deleteAll()
 
-                    appDatabase.toDoListDao.insertAll(
-                        ToDoList(0, "Generic", ListIcon.HOME.id, 0),
-                        ToDoList(1, "Initial", ListIcon.HOME.id, 0),
-                        ToDoList(2, "Test", ListIcon.ALERT.id, 0)
+                    appDatabase.noteDao.insertAll(
+                        Note("Generic", ListIcon.HOME.id, 0),
+                        Note("Initial", ListIcon.HOME.id, 0),
+                        Note("Test", ListIcon.ALERT.id, 0)
                     )
                     appDatabase.choreDao.insertAll(
-                        Chore(null, "QWE", "* * * * *", 1, null),
-                        Chore(null, "ASD", "", 1, 1),
-                        Chore(null, "ZXC", "* * * * 1", 1, 1),
+                        Chore(0, "QWE"),
+                        Chore(1, "ASD"),
+                        Chore(1, "ZXC"),
+                        Chore(2, "RTY"),
                     )
                 }
             }

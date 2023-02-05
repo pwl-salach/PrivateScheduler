@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ToDoList(
-    @PrimaryKey val id: Int?,
+data class Note(
     @ColumnInfo val name: String,
     @ColumnInfo val iconShape: Int,
-    @ColumnInfo val iconColor: Int
+    @ColumnInfo val iconColor: Int,
+    @PrimaryKey val id: Int? = null,
 )

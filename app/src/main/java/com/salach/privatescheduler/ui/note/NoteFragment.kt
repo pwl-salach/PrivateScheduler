@@ -1,11 +1,10 @@
-package com.salach.privatescheduler.ui.single_list
+package com.salach.privatescheduler.ui.note
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +14,7 @@ import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.databinding.FragmentSingleToDoListBinding
 import com.salach.privatescheduler.ui.dialogs.AddChoreDialog
 
-class SingleToDoListFragment : Fragment() {
+class NoteFragment : Fragment() {
 
     private var _binding: FragmentSingleToDoListBinding? = null
     // This property is only valid between onCreateView and
@@ -24,8 +23,8 @@ class SingleToDoListFragment : Fragment() {
 
     private var listId = 0
     private var choresList: RecyclerView? = null
-    private var viewModel: SingleToDoListViewModel? = null
-    private var dummyButton: FloatingActionButton? = null
+    private var viewModel: NoteViewModel? = null
+    private var addChoreFAB: FloatingActionButton? = null
 
 
     override fun onCreateView(
@@ -39,25 +38,25 @@ class SingleToDoListFragment : Fragment() {
         val root: View = binding.root
 
         choresList = binding.tableChores
-        val adapter = SingleToDoListAdapter()
+        val adapter = NoteAdapter()
         choresList!!.adapter = adapter
         choresList!!.layoutManager = LinearLayoutManager(activity)
 
         listId = arguments?.getInt("listId")!!
 
         viewModel = ViewModelProvider(this,
-            SingleToDoListModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository,
+            NoteModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository,
                 listId
             )
-        ).get(SingleToDoListViewModel::class.java)
+        ).get(NoteViewModel::class.java)
         viewModel!!.chores.observe(viewLifecycleOwner, Observer { chores ->
             chores.let{
                 adapter.submitList(it)
             }
         })
 
-        dummyButton = binding.fab
-        dummyButton!!.setOnClickListener{
+        addChoreFAB = binding.fabAddChore
+        addChoreFAB!!.setOnClickListener{
             showAddChoreDialog()
         }
 

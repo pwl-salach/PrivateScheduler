@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.single_list.SingleToDoListFragment">
+    tools:context=".ui.note.NoteFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/table_chores"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_add_chore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="64dp"

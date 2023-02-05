@@ -12,5 +12,5 @@ class PrivateSchedulerApplication : Application() {
 
     val database by lazy { AppDatabase.getInstance(this, applicationScope) }
     val choresRepository by lazy { ChoresRepository(database.choreDao) }
-    val toDoListsRepository by lazy { ToDoListsRepository(database.toDoListDao) }
+    val toDoListsRepository by lazy { ToDoListsRepository(database.noteDao) }
 }

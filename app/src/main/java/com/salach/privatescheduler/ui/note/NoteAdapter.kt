@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.single_list
+package com.salach.privatescheduler.ui.note
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import com.salach.privatescheduler.db.models.Chore
 
 
 
-class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreViewHolder>(ChoreComparator()) {
+class NoteAdapter : ListAdapter<Chore, NoteAdapter.ChoreViewHolder>(ChoreComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChoreViewHolder {
         return ChoreViewHolder.create(parent)
@@ -21,7 +21,7 @@ class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreView
 
     override fun onBindViewHolder(holder: ChoreViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.done, current.shortDesc, current.cron)
+        holder.bind(current.done, current.shortDesc)
     }
 
     class ChoreViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -35,10 +35,9 @@ class SingleToDoListAdapter : ListAdapter<Chore, SingleToDoListAdapter.ChoreView
             nextOccurrence = view.findViewById(R.id.txt_schedule)
         }
 
-        fun bind(isDone: Boolean, shortDesc: String, cron: String){
+        fun bind(isDone: Boolean, shortDesc: String){
             done.isChecked = isDone
             name.text = shortDesc
-            nextOccurrence.text = cron
         }
 
         companion object {
