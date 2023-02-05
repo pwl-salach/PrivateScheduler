@@ -22,9 +22,9 @@ class NoteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var listId = 0
-    private var choresList: RecyclerView? = null
     private var viewModel: NoteViewModel? = null
-    private var addChoreFAB: FloatingActionButton? = null
+    private var choresList: RecyclerView? = null
+    private var addChoreFab: FloatingActionButton? = null
 
 
     override fun onCreateView(
@@ -32,35 +32,47 @@ class NoteFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-
-
         _binding = FragmentSingleToDoListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        choresList = binding.tableChores
+        loadArguments()
         val adapter = NoteAdapter()
-        choresList!!.adapter = adapter
-        choresList!!.layoutManager = LinearLayoutManager(activity)
+        setupViewModel(adapter)
+        setupRecycleView(adapter)
+        setupFab()
+        return root
+    }
 
+    private fun loadArguments() {
         listId = arguments?.getInt("listId")!!
+    }
 
-        viewModel = ViewModelProvider(this,
-            NoteModelFactory((activity?.application as PrivateSchedulerApplication).choresRepository,
+    private fun setupViewModel(adapter: NoteAdapter) {
+        viewModel = ViewModelProvider(
+            this,
+            NoteModelFactory(
+                (activity?.application as PrivateSchedulerApplication).choresRepository,
                 listId
             )
         ).get(NoteViewModel::class.java)
         viewModel!!.chores.observe(viewLifecycleOwner, Observer { chores ->
-            chores.let{
+            chores.let {
                 adapter.submitList(it)
             }
         })
+    }
 
-        addChoreFAB = binding.fabAddChore
-        addChoreFAB!!.setOnClickListener{
+    private fun setupRecycleView(adapter: NoteAdapter) {
+        choresList = binding.tableChores
+        choresList!!.adapter = adapter
+        choresList!!.layoutManager = LinearLayoutManager(activity)
+    }
+
+    private fun setupFab() {
+        addChoreFab = binding.fabAddChore
+        addChoreFab!!.setOnClickListener {
             showAddChoreDialog()
         }
-
-        return root
     }
 
     private fun showAddChoreDialog(){

@@ -61,15 +61,15 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.noteDao.deleteAll()
 
                     appDatabase.noteDao.insertAll(
-                        Note("Generic", ListIcon.HOME.id, 0),
-                        Note("Initial", ListIcon.HOME.id, 0),
-                        Note("Test", ListIcon.ALERT.id, 0)
+                        Note("Generic", ListIcon.HOME.id, 0, 1),
+                        Note("Initial", ListIcon.HOME.id, 0, 2),
+                        Note("Test", ListIcon.ALERT.id, 0, 3)
                     )
                     appDatabase.choreDao.insertAll(
-                        Chore(0, "QWE"),
+                        Chore(1, "QWE"),
                         Chore(1, "ASD"),
-                        Chore(1, "ZXC"),
-                        Chore(2, "RTY"),
+                        Chore(2, "ZXC"),
+                        Chore(3, "RTY"),
                     )
                 }
             }
