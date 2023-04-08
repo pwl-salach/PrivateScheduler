@@ -18,5 +18,5 @@ data class Chore(
     @ColumnInfo(index = true) val noteId: Int,
     @ColumnInfo val shortDesc: String,
     @ColumnInfo val done: Boolean = false,
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null
 )

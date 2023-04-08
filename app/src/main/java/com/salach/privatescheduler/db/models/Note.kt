@@ -9,5 +9,5 @@ data class Note(
     @ColumnInfo val name: String,
     @ColumnInfo val iconShape: Int,
     @ColumnInfo val iconColor: Int,
-    @PrimaryKey val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
 )
