@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.salach.privatescheduler.enums.NotePartType
 
 
 @Entity(
@@ -14,8 +15,9 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class Memo(
+data class NotePart(
     @ColumnInfo(index = true) val noteId: Int,
-    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val text: String,
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @ColumnInfo val type: NotePartType,
+    @ColumnInfo val position: Int? = null,
 )

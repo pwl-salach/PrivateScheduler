@@ -47,6 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract val choreDao: ChoreDao
+    abstract val memoDao: MemoDao
     abstract val productDao: ProductDao
     abstract val shoppingList: ShoppingListDao
     abstract val shoppingListItemDao: ShoppingListItemDao

@@ -27,7 +27,7 @@ class NotesListFragment : Fragment() {
 
     private var toDoLists: RecyclerView? = null
     private val viewModel: ToDoListsViewModel by viewModels {
-        ToDoListsModelFactory((activity?.application as PrivateSchedulerApplication).toDoListsRepository)
+        ToDoListsModelFactory((activity?.application as PrivateSchedulerApplication).notesRepository)
     }
     private var addListFAB: FloatingActionButton? = null
 
