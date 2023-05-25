@@ -13,7 +13,7 @@ interface MemoDao {
     fun getAll(): Flow<List<Memo>>
 
     @Query("SELECT * FROM Memo WHERE id = :id")
-    fun getById(id: Int): Memo
+    suspend fun getById(id: Int): Memo
 
     @Insert
     suspend fun insertAll(vararg notes: Memo)

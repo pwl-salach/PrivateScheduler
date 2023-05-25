@@ -37,44 +37,69 @@ class NotesListFragment : Fragment() {
     ): View {
         _binding = FragmentToDoListsBinding.inflate(inflater, container, false)
 
-        toDoLists = binding.toDoLists
         val adapter = NotesListAdapter()
         adapter.setOnItemClickListener(object: NotesListAdapter.OnItemClickListener{
             override fun onItemClick(id: Int) {
                 val args = Bundle()
                 args.putInt("listId", id)
-                findNavController().navigate(R.id.action_navigation_lists_to_single_to_do_list_fragment, args)
+                findNavController().navigate(
+                    R.id.action_navigation_lists_to_single_to_do_list_fragment, args
+                )
             }
         })
-        toDoLists!!.adapter = adapter
-        toDoLists!!.layoutManager = LinearLayoutManager(activity)
+
+        setupViewModel(adapter)
+        setupRecycleView(adapter)
+        setupSearchFilter(adapter)
+        setupMarkerFilter(adapter)
+        setupFab()
+        return binding.root
+    }
+
+    private fun setupViewModel(adapter: NotesListAdapter) {
         viewModel.toDoLists.observe(viewLifecycleOwner) { toDoLists ->
             toDoLists.let {
                 adapter.updateData(it)
             }
         }
+    }
+
+    private fun setupRecycleView(adapter: NotesListAdapter) {
+        toDoLists = binding.toDoLists
+        toDoLists!!.adapter = adapter
+        toDoLists!!.layoutManager = LinearLayoutManager(activity)
+    }
+
+    private fun setupSearchFilter(adapter: NotesListAdapter) {
         val searchBar = binding.inputSearchBar
-        searchBar.addTextChangedListener(object: TextWatcher{
+        searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
                 adapter.filter.filter(sequence)
             }
 
             override fun afterTextChanged(p0: Editable?) {}
         })
+    }
 
+    private fun setupMarkerFilter(adapter: NotesListAdapter) {
         val markerFilterButton = binding.btnMarkerFilter
         markerFilterButton.setOnClickListener {
-            if(context != null){
+            if (context != null) {
                 val popup = IconPickerPopup(
                     context,
                     markerFilterButton,
                     ListIcon.getValues() + R.drawable.ic_invisible
                 )
-                popup.setOnItemClickListener(object: OnItemClickListener{
+                popup.setOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClick(id: Int) {
-                        if(id == R.drawable.ic_invisible){
+                        if (id == R.drawable.ic_invisible) {
                             adapter.getIconFilter().filter(null)
                         } else {
                             adapter.getIconFilter().filter(id.toString())
@@ -85,12 +110,13 @@ class NotesListFragment : Fragment() {
                 popup.show()
             }
         }
+    }
 
+    private fun setupFab() {
         addListFAB = binding.fabAddList
-        addListFAB!!.setOnClickListener{
+        addListFAB!!.setOnClickListener {
 
         }
-        return binding.root
     }
 
     override fun onDestroyView() {

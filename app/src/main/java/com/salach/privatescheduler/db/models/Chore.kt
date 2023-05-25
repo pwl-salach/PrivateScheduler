@@ -8,15 +8,14 @@ import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = Note::class,
+        entity = NotePart::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("noteId"),
+        childColumns = arrayOf("id"),
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class Chore(
-    @ColumnInfo(index = true) val noteId: Int,
+    @PrimaryKey val id: Int = 0,
     @ColumnInfo val shortDesc: String,
-    @ColumnInfo val done: Boolean = false,
-    @PrimaryKey(autoGenerate = true) val id: Int? = null
+    @ColumnInfo val done: Boolean = false
 )

@@ -36,7 +36,7 @@ class NoteFragment : Fragment() {
         val root: View = binding.root
 
         loadArguments()
-        val adapter = NoteAdapter()
+        val adapter = NotePartAdapter((activity?.application as PrivateSchedulerApplication).notePartsRepository)
         setupViewModel(adapter)
         setupRecycleView(adapter)
         setupFab()
@@ -47,22 +47,23 @@ class NoteFragment : Fragment() {
         listId = arguments?.getInt("listId")!!
     }
 
-    private fun setupViewModel(adapter: NoteAdapter) {
+    private fun setupViewModel(adapter: NotePartAdapter) {
         viewModel = ViewModelProvider(
             this,
             NoteModelFactory(
-                (activity?.application as PrivateSchedulerApplication).choresRepository,
+                (activity?.application as PrivateSchedulerApplication).notePartsRepository,
                 listId
             )
         ).get(NoteViewModel::class.java)
-        viewModel!!.chores.observe(viewLifecycleOwner, Observer { chores ->
-            chores.let {
+        viewModel!!.parts.observe(viewLifecycleOwner, Observer { part ->
+            print(part)
+            part.let {
                 adapter.submitList(it)
             }
         })
     }
 
-    private fun setupRecycleView(adapter: NoteAdapter) {
+    private fun setupRecycleView(adapter: NotePartAdapter) {
         choresList = binding.tableChores
         choresList!!.adapter = adapter
         choresList!!.layoutManager = LinearLayoutManager(activity)

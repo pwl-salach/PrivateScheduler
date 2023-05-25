@@ -22,10 +22,10 @@ class AddChoreDialog(private val listId: Int) : DialogFragment() {
             builder.setView(view)
                 .setPositiveButton(R.string.create, DialogInterface.OnClickListener { dialog, id ->
                     val chore = Chore(
-                        shortDesc = view.findViewById<TextView>(R.id.short_desc).text.toString(),
-                        noteId = listId
+                        0,
+                        view.findViewById<TextView>(R.id.short_desc).text.toString(),
                     )
-                    listViewModel.insertChore(chore)
+//                    listViewModel.insertChore(chore)
                 })
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

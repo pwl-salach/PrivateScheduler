@@ -8,14 +8,13 @@ import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = Note::class,
+        entity = NotePart::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("noteId"),
+        childColumns = arrayOf("id"),
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class Memo(
-    @ColumnInfo(index = true) val noteId: Int,
+    @PrimaryKey val id: Int = 0,
     @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val text: String,
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
 )
