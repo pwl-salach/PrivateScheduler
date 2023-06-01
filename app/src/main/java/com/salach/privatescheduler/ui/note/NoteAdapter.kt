@@ -19,7 +19,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class NotePartAdapter(private val notePartsRepository: NotePartsRepository) : ListAdapter<NotePart, RecyclerView.ViewHolder>(NotePartComparator()) {
+class NoteAdapter(private val notePartsRepository: NotePartsRepository) : ListAdapter<NotePart, RecyclerView.ViewHolder>(NotePartComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {

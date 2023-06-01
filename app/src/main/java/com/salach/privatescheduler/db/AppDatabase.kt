@@ -86,7 +86,12 @@ abstract class AppDatabase : RoomDatabase() {
                         Chore(5, "RTY"),
                     )
                     appDatabase.memoDao.insertAll(
-                        Memo(4, "QWE"),
+                        Memo(
+                            4,
+                            """A bit longer note.
+                                |Potentially multiline!!!
+                            """.trimMargin()
+                        ),
                     )
                 }
             }

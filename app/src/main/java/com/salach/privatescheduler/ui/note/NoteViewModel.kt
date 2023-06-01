@@ -1,11 +1,8 @@
 package com.salach.privatescheduler.ui.note
 
 import androidx.lifecycle.*
-import com.salach.privatescheduler.db.models.Chore
 import com.salach.privatescheduler.db.models.NotePart
-import com.salach.privatescheduler.repositories.ChoresRepository
 import com.salach.privatescheduler.repositories.NotePartsRepository
-import kotlinx.coroutines.launch
 
 class NoteViewModel(private val repository: NotePartsRepository, private val listId: Int) : ViewModel() {
     var parts: LiveData<List<NotePart>> = repository.getAllParts(listId).asLiveData()

@@ -36,7 +36,7 @@ class NoteFragment : Fragment() {
         val root: View = binding.root
 
         loadArguments()
-        val adapter = NotePartAdapter((activity?.application as PrivateSchedulerApplication).notePartsRepository)
+        val adapter = NoteAdapter((activity?.application as PrivateSchedulerApplication).notePartsRepository)
         setupViewModel(adapter)
         setupRecycleView(adapter)
         setupFab()
@@ -47,7 +47,7 @@ class NoteFragment : Fragment() {
         listId = arguments?.getInt("listId")!!
     }
 
-    private fun setupViewModel(adapter: NotePartAdapter) {
+    private fun setupViewModel(adapter: NoteAdapter) {
         viewModel = ViewModelProvider(
             this,
             NoteModelFactory(
@@ -63,7 +63,7 @@ class NoteFragment : Fragment() {
         })
     }
 
-    private fun setupRecycleView(adapter: NotePartAdapter) {
+    private fun setupRecycleView(adapter: NoteAdapter) {
         choresList = binding.tableChores
         choresList!!.adapter = adapter
         choresList!!.layoutManager = LinearLayoutManager(activity)
@@ -72,11 +72,11 @@ class NoteFragment : Fragment() {
     private fun setupFab() {
         addChoreFab = binding.fabAddChore
         addChoreFab!!.setOnClickListener {
-            showAddChoreDialog()
+            showAddNotePartDialog()
         }
     }
 
-    private fun showAddChoreDialog(){
+    private fun showAddNotePartDialog(){
         val dialog = AddChoreDialog(listId)
         dialog.show(childFragmentManager, "AddChoreDialog")
     }
