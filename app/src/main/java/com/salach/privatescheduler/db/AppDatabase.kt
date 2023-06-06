@@ -70,7 +70,9 @@ abstract class AppDatabase : RoomDatabase() {
                     appDatabase.noteDao.insertAll(
                         Note("Generic", ListIcon.HOME.id, 0, 1),
                         Note("Initial", ListIcon.HOME.id, 0, 2),
-                        Note("Test", ListIcon.ALERT.id, 0, 3)
+                        Note("Test", ListIcon.ALERT.id, 0, 3),
+                        Note("Test2", ListIcon.ALERT.id, 0, 4),
+                        Note("Test3", ListIcon.ALERT.id, 0, 5),
                     )
                     appDatabase.notePartDao.insertAll(
                         NotePart(1, NotePartType.CHORE, 1),
@@ -78,12 +80,15 @@ abstract class AppDatabase : RoomDatabase() {
                         NotePart(2, NotePartType.CHORE, 3),
                         NotePart(2, NotePartType.MEMO, 4),
                         NotePart(3, NotePartType.CHORE, 5),
+                        NotePart(4, NotePartType.MEMO, 6),
+                        NotePart(5, NotePartType.CHORE, 7),
                     )
                     appDatabase.choreDao.insertAll(
                         Chore(1, "QWE"),
                         Chore(2, "ASD"),
                         Chore(3, "ZXC"),
                         Chore(5, "RTY"),
+                        Chore(7, "RTY"),
                     )
                     appDatabase.memoDao.insertAll(
                         Memo(
@@ -92,6 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 |Potentially multiline!!!
                             """.trimMargin()
                         ),
+                        Memo(6, "dasdasdasdasda as dasd")
                     )
                 }
             }
