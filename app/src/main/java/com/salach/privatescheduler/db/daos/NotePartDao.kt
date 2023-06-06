@@ -3,7 +3,6 @@ package com.salach.privatescheduler.db.daos
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.salach.privatescheduler.db.models.Memo
 import com.salach.privatescheduler.db.models.NotePart
 import kotlinx.coroutines.flow.Flow
 
@@ -13,8 +12,10 @@ interface NotePartDao {
     fun getNoteParts(noteId: Int): Flow<List<NotePart>>
 
     @Insert
-    suspend fun insertAll(vararg notes: NotePart)
+    suspend fun insert(note: NotePart): Long
 
+    @Insert
+    suspend fun insertAll(vararg note: NotePart): List<Long>
 
     @Query("DELETE FROM NotePart")
     suspend fun deleteAll()

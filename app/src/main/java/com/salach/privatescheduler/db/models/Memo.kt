@@ -15,6 +15,6 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Memo(
-    @PrimaryKey val id: Int = 0,
+    @PrimaryKey var id: Long = 0,
     @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val text: String,
 )

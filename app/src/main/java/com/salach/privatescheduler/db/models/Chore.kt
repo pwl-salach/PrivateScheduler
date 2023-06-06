@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Chore(
-    @PrimaryKey val id: Int = 0,
+    @PrimaryKey var id: Long = 0,
     @ColumnInfo val shortDesc: String,
     @ColumnInfo val done: Boolean = false
 )

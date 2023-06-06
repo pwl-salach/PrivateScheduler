@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.salach.privatescheduler.PrivateSchedulerApplication
 import com.salach.privatescheduler.databinding.FragmentSingleToDoListBinding
-import com.salach.privatescheduler.ui.dialogs.AddChoreDialog
+import com.salach.privatescheduler.ui.dialogs.AddNotePartFragment
 
 class NoteFragment : Fragment() {
 
@@ -23,8 +23,8 @@ class NoteFragment : Fragment() {
 
     private var listId = 0
     private var viewModel: NoteViewModel? = null
-    private var choresList: RecyclerView? = null
-    private var addChoreFab: FloatingActionButton? = null
+    private var partsList: RecyclerView? = null
+    private var addNotePartFab: FloatingActionButton? = null
 
 
     override fun onCreateView(
@@ -64,20 +64,20 @@ class NoteFragment : Fragment() {
     }
 
     private fun setupRecycleView(adapter: NoteAdapter) {
-        choresList = binding.tableChores
-        choresList!!.adapter = adapter
-        choresList!!.layoutManager = LinearLayoutManager(activity)
+        partsList = binding.tableChores
+        partsList!!.adapter = adapter
+        partsList!!.layoutManager = LinearLayoutManager(activity)
     }
 
     private fun setupFab() {
-        addChoreFab = binding.fabAddChore
-        addChoreFab!!.setOnClickListener {
+        addNotePartFab = binding.fabAddNotePart
+        addNotePartFab!!.setOnClickListener {
             showAddNotePartDialog()
         }
     }
 
     private fun showAddNotePartDialog(){
-        val dialog = AddChoreDialog(listId)
+        val dialog = AddNotePartFragment()
         dialog.show(childFragmentManager, "AddChoreDialog")
     }
 

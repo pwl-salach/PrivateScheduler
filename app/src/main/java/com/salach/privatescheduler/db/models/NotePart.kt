@@ -18,6 +18,6 @@ import com.salach.privatescheduler.enums.NotePartType
 data class NotePart(
     @ColumnInfo(index = true) val noteId: Int,
     @ColumnInfo val type: NotePartType,
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Long? = null,
     @ColumnInfo val position: Int? = null,
 )
