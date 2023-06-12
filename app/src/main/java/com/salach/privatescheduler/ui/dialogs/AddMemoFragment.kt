@@ -16,8 +16,7 @@ class AddMemoFragment(private val listViewModel: NoteViewModel) : DialogFragment
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return  activity?.let {
             val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater
-            val view = inflater.inflate(R.layout.dialog_add_memo, null)
+            val view = requireActivity().layoutInflater.inflate(R.layout.dialog_add_memo, null)
             builder.setView(view)
                 .setPositiveButton(R.string.create, DialogInterface.OnClickListener { dialog, id ->
                     val memo = Memo(

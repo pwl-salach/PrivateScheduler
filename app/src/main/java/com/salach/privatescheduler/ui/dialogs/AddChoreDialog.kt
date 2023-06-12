@@ -1,31 +1,49 @@
 package com.salach.privatescheduler.ui.dialogs
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
+import com.salach.privatescheduler.structures.Schedule
 import com.salach.privatescheduler.ui.note.NoteViewModel
+import com.salach.privatescheduler.ui.parts.DialogButtons
 
-class AddChoreDialog(private val listViewModel: NoteViewModel) : DialogFragment() {
+class AddChoreDialog(private val listViewModel: NoteViewModel) : DialogFragment(), SchedulePickerDialogListener {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return  activity?.let {
-            val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater
-            val view = inflater.inflate(R.layout.dialog_add_chore, null)
-            builder.setView(view)
-                .setPositiveButton(R.string.create, DialogInterface.OnClickListener { dialog, id ->
-                    val chore = Chore(
-                        0,
-                        view.findViewById<TextView>(R.id.short_desc).text.toString(),
-                    )
-                    listViewModel.insertChore(chore)
-                })
-            builder.create()
-        } ?: throw IllegalStateException("Activity can not be null")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.dialog_add_chore, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val cronText: TextView = view.findViewById(R.id.cron_txt)
+        cronText.setOnClickListener {
+            val additionalDialogFragment = SchedulePickerDialog(this)
+            additionalDialogFragment.show(childFragmentManager, "schedulePicker")
+        }
+
+        val dialogButtons = view.findViewById<DialogButtons>(R.id.dialog_buttons)
+        dialogButtons.setPositiveButtonListener{
+            val chore = Chore(
+            0,
+            view.findViewById<TextView>(R.id.short_desc_txt).text.toString(),
+            )
+            listViewModel.insertChore(chore)
+        }
+        dialogButtons.setNegativeButtonListener { dismiss() }
+    }
+
+    override fun onDataReceived(schedule: Schedule) {
+
     }
 }

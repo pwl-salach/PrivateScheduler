@@ -5,6 +5,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Submit</string>string>
+    <!-- Period enum   -->
+    <string name="enum_DAILY">Days</string>
+    <string name="enum_WEEKLY">Weeks</string>
+    <string name="enum_MONTHLY">Months</string>
+    <string name="enum_ANNUALLY">Years</string>
 </resources>
