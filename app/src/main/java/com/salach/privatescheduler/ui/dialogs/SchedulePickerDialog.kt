@@ -50,12 +50,12 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
     }
 
     private fun configurePeriodPickerControl(controllingSwitch: Switch, controlledLayout: View){
-        controlledLayout.visibility = View.GONE
+        controlledLayout.visibility = View.INVISIBLE
         controllingSwitch.setOnCheckedChangeListener{_, isChecked ->
             if(isChecked){
                 controlledLayout.visibility = View.VISIBLE
             } else {
-                controlledLayout.visibility = View.GONE
+                controlledLayout.visibility = View.INVISIBLE
             }
         }
     }
