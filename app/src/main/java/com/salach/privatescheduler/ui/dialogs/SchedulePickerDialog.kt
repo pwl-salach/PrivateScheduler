@@ -1,5 +1,8 @@
 package com.salach.privatescheduler.ui.dialogs
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +31,13 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pickedStartDate = view.findViewById<TextView>(R.id.picked_date)
+        val pickedStartDate = view.findViewById<TextView>(R.id.picked_start_date)
+        setupDatePicker(pickedStartDate)
+        val pickedEndDate = view.findViewById<TextView>(R.id.picked_end_date)
+        setupDatePicker(pickedEndDate)
+
+        val pickedTime = view.findViewById<TextView>(R.id.picked_time)
+        setupTimePicker(pickedTime)
 
         val periodEnabled = view.findViewById<Switch>(R.id.period_sw)
         val periodPickedLayout = view.findViewById<LinearLayout>(R.id.period_layout)
@@ -43,6 +52,44 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
         }
         dialogButtons.setNegativeButtonListener{ dismiss() }
     }
+
+    private fun setupDatePicker(pickedStartDate: TextView) {
+        pickedStartDate.setOnClickListener {
+            val currentDate = Calendar.getInstance()
+            val year = currentDate.get(Calendar.YEAR)
+            val month = currentDate.get(Calendar.MONTH)
+            val day = currentDate.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog =
+                DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                    // Step 3: Update the TextView with the selected date
+                    val formattedDate = String.format(
+                        "%02d/%02d/%04d",
+                        selectedDay,
+                        selectedMonth + 1,
+                        selectedYear
+                    )
+                    pickedStartDate.text = formattedDate
+                }, year, month, day)
+            datePickerDialog.show()
+        }
+    }
+
+    private fun setupTimePicker(pickedTime: TextView) {
+        pickedTime.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+
+            val timePickerDialog =
+                TimePickerDialog(requireContext(), { _, selectedHour, selectedMinute ->
+                    val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                    pickedTime.text = formattedTime
+                }, hour, minute, true)
+            timePickerDialog.show()
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         // TODO fix hardcoded dimensions
