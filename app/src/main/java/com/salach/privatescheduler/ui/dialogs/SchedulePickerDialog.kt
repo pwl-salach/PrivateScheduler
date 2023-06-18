@@ -15,10 +15,13 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.enums.Period
+import com.salach.privatescheduler.enums.EnumUtils
 import com.salach.privatescheduler.structures.Schedule
 import com.salach.privatescheduler.ui.parts.DialogButtons
+import com.salach.privatescheduler.utils.DateUtils
+import com.salach.privatescheduler.utils.TimeUtils
 
-class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogFragment() {
+class SchedulePickerDialog(private val listener: SchedulePickerDialogListener) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,30 +34,45 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pickedStartDate = view.findViewById<TextView>(R.id.picked_start_date)
-        setupDatePicker(pickedStartDate)
-        val pickedEndDate = view.findViewById<TextView>(R.id.picked_end_date)
-        setupDatePicker(pickedEndDate)
+        val startDatePicker = view.findViewById<TextView>(R.id.picked_start_date)
+        setupDatePicker(startDatePicker)
+        val endDatePicker = view.findViewById<TextView>(R.id.picked_end_date)
+        setupDatePicker(endDatePicker)
 
-        val pickedTime = view.findViewById<TextView>(R.id.picked_time)
-        setupTimePicker(pickedTime)
+        val timePicker = view.findViewById<TextView>(R.id.picked_time)
+        setupTimePicker(timePicker)
 
         val periodEnabled = view.findViewById<Switch>(R.id.period_sw)
         val periodPickedLayout = view.findViewById<LinearLayout>(R.id.period_layout)
         configurePeriodPickerControl(periodEnabled, periodPickedLayout)
 
+        val frequency = view.findViewById<TextView>(R.id.frequency_txt)
         val periodSpinner = view.findViewById<Spinner>(R.id.period_spinner)
         populatePeriodSpinnerValues(periodSpinner)
 
         val dialogButtons = view.findViewById<DialogButtons>(R.id.dialog_buttons)
         dialogButtons.setPositiveButtonListener{
+            val pickedPeriodString = periodSpinner.selectedItem as String
+            val pickedPeriod = Period.getDisplayable().first { enumConstant ->
+                EnumUtils.getEnumStringResource(requireContext().packageName, resources, enumConstant) == pickedPeriodString
+            }
+            val schedule = Schedule(
+                DateUtils.getDateFromString(startDatePicker.text.toString()),
+                frequency.text.toString().toInt(),
+                pickedPeriod,
+                TimeUtils.getTimeFromString(timePicker.text.toString()),
+                0,
+                DateUtils.getDateFromString(endDatePicker.text.toString())
 
+            )
+            listener.onDataReceived(schedule)
+            dismiss()
         }
         dialogButtons.setNegativeButtonListener{ dismiss() }
     }
 
-    private fun setupDatePicker(pickedStartDate: TextView) {
-        pickedStartDate.setOnClickListener {
+    private fun setupDatePicker(datePicker: TextView) {
+        datePicker.setOnClickListener {
             val currentDate = Calendar.getInstance()
             val year = currentDate.get(Calendar.YEAR)
             val month = currentDate.get(Calendar.MONTH)
@@ -62,14 +80,8 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
 
             val datePickerDialog =
                 DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-                    // Step 3: Update the TextView with the selected date
-                    val formattedDate = String.format(
-                        "%02d/%02d/%04d",
-                        selectedDay,
-                        selectedMonth + 1,
-                        selectedYear
-                    )
-                    pickedStartDate.text = formattedDate
+                    val formattedDate = DateUtils.formatDate(selectedYear, selectedMonth, selectedDay)
+                    datePicker.text = formattedDate
                 }, year, month, day)
             datePickerDialog.show()
         }
@@ -108,13 +120,13 @@ class SchedulePickerDialog(val listener: SchedulePickerDialogListener) : DialogF
     }
 
     private fun populatePeriodSpinnerValues(periodSpinner: Spinner){
-        val enumValues = Period.values().filterNot { it == Period.NONE }
+        val enumValues = Period.getDisplayable()
 
         val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             enumValues.map { enumConstant ->
-                resources.getString(resources.getIdentifier("enum_${enumConstant.name}", "string", requireContext().packageName))
+                EnumUtils.getEnumStringResource(requireContext().packageName, resources, enumConstant)
             }
         )
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

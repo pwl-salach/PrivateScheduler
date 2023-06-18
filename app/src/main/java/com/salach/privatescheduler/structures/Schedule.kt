@@ -1,14 +1,16 @@
 package com.salach.privatescheduler.structures
 
 import com.salach.privatescheduler.enums.Period
-import java.time.Instant
-import java.util.Date
+import java.time.LocalDate
+import java.time.LocalTime
 
-class Schedule {
-    var startingDate: Date? = null
-    var frequency: Int = 0
-    var period: Period = Period.NONE
-    var time: Instant? = null
-    var occurrences = 0
-    var endDate: Date? = null
+data class Schedule (
+    var startingDate: LocalDate? = null,
+    var frequency: Int = 0,
+    var period: Period = Period.NONE,
+    var time: LocalTime? = null,
+    var occurrences: Int = 0,
+    var endDate: LocalDate? = null
+){
+
 }

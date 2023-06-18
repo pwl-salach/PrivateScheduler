@@ -44,6 +44,6 @@ class AddChoreDialog(private val listViewModel: NoteViewModel) : DialogFragment(
     }
 
     override fun onDataReceived(schedule: Schedule) {
-
+        println(schedule)
     }
 }

@@ -5,5 +5,11 @@ enum class Period {
     DAILY,
     WEEKLY,
     MONTHLY,
-    ANNUALLY
+    ANNUALLY;
+
+    companion object {
+        fun getDisplayable(): List<Period>{
+            return values().filterNot { it == NONE }
+        }
+    }
 }
