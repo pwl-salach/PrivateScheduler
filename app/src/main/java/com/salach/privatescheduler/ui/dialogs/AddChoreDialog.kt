@@ -1,10 +1,10 @@
 package com.salach.privatescheduler.ui.dialogs
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.salach.privatescheduler.R
@@ -26,7 +26,7 @@ class AddChoreDialog(private val listViewModel: NoteViewModel) : DialogFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cronText: TextView = view.findViewById(R.id.cron_txt)
+        val cronText = view.findViewById<Button>(R.id.add_schedule_btn)
         cronText.setOnClickListener {
             val additionalDialogFragment = SchedulePickerDialog(this)
             additionalDialogFragment.show(childFragmentManager, "schedulePicker")

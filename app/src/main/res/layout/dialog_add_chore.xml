@@ -24,20 +24,25 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/cron_txt"
+        <Button
+            android:id="@+id/add_schedule_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="0 12 * * 1" />
+            android:text="Add schedule" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/schedules_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
     <com.salach.privatescheduler.ui.parts.DialogButtons
         android:id="@+id/dialog_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
     </com.salach.privatescheduler.ui.parts.DialogButtons>
 </LinearLayout>
