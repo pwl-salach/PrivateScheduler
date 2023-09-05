@@ -13,7 +13,7 @@ import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.salach.privatescheduler.R
-import com.salach.privatescheduler.ui.note.NoteViewModel
+import com.salach.privatescheduler.ui.screens.note.NoteViewModel
 
 class AddNotePartFragment : DialogFragment() {
     private val listViewModel: NoteViewModel by viewModels({requireParentFragment()})

@@ -39,10 +39,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical"></LinearLayout>
 
-    <com.salach.privatescheduler.ui.parts.DialogButtons
+    <com.salach.privatescheduler.ui.components.DialogButtons
         android:id="@+id/dialog_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.salach.privatescheduler.ui.parts.DialogButtons>
+    </com.salach.privatescheduler.ui.components.DialogButtons>
 </LinearLayout>

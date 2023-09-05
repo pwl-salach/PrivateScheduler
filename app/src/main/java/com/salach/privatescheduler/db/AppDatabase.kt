@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.daos.*
 import com.salach.privatescheduler.db.models.*
 import com.salach.privatescheduler.enums.ListIcon
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
         Product::class,
         ShoppingList::class,
         ShoppingListItem::class,
-        Note::class
+        Note::class,
+        Goal::class
     ],
     version = 1
 )
@@ -56,6 +58,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val shoppingListItemDao: ShoppingListItemDao
     abstract val noteDao: NoteDao
     abstract val notePartDao: NotePartDao
+    abstract val goalDao: GoalDao
 
     private class DevSetupCallback(private val scope: CoroutineScope) : Callback(){
         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -98,6 +101,11 @@ abstract class AppDatabase : RoomDatabase() {
                             """.trimMargin()
                         ),
                         Memo(6, "dasdasdasdasda as dasd")
+                    )
+                    appDatabase.goalDao.insertAll(
+                        Goal(R.drawable.icon_bootle_foreground, "Abc", "small test", 0.69f, 0),
+                        Goal(R.drawable.ic_dashboard_black_24dp, "HGCVH", "small test", 0.21f, 1),
+                        Goal(R.drawable.ic_home_black_24dp, "Test", "small test", 0.37f, 2)
                     )
                 }
             }

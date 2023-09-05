@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.note
+package com.salach.privatescheduler.ui.screens.note
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.notifications
+package com.salach.privatescheduler.ui.screens.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

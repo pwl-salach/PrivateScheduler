@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.parts
+package com.salach.privatescheduler.ui.components
 
 import android.content.Context
 import android.util.AttributeSet

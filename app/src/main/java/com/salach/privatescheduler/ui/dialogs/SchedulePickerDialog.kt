@@ -17,7 +17,7 @@ import com.salach.privatescheduler.R
 import com.salach.privatescheduler.enums.Period
 import com.salach.privatescheduler.enums.EnumUtils
 import com.salach.privatescheduler.structures.Schedule
-import com.salach.privatescheduler.ui.parts.DialogButtons
+import com.salach.privatescheduler.ui.components.DialogButtons
 import com.salach.privatescheduler.utils.DateUtils
 import com.salach.privatescheduler.utils.TimeUtils
 

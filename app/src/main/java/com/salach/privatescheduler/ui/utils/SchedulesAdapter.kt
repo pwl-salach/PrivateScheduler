@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.salach.privatescheduler.R
 import com.salach.privatescheduler.structures.Schedule
 
 class SchedulesAdapter : ListAdapter<Schedule, SchedulesAdapter.SchedulesViewHolder>(SchedulesComparator()){
@@ -20,7 +21,8 @@ class SchedulesAdapter : ListAdapter<Schedule, SchedulesAdapter.SchedulesViewHol
     class SchedulesViewHolder(view: View) : RecyclerView.ViewHolder(view){
         companion object {
             fun create(parent: ViewGroup) : SchedulesViewHolder {
-                val view = LayoutInflater.from(parent.context).inflate()
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.schedule_row, parent, false)
+                return SchedulesViewHolder(view)
             }
         }
     }

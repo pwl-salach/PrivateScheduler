@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.notes_list
+package com.salach.privatescheduler.ui.screens.notes_list
 
 import androidx.lifecycle.*
 import com.salach.privatescheduler.db.models.Note

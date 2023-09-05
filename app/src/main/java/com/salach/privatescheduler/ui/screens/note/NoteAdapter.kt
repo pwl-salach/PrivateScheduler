@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.note
+package com.salach.privatescheduler.ui.screens.note
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class NoteAdapter(private val notePartsRepository: NotePartsRepository) : ListAdapter<NotePart, RecyclerView.ViewHolder>(NotePartComparator()) {
+class NoteAdapter(private val notePartsRepository: NotePartsRepository) : ListAdapter<NotePart, RecyclerView.ViewHolder>(
+    NotePartComparator()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -88,7 +90,7 @@ class NoteAdapter(private val notePartsRepository: NotePartsRepository) : ListAd
         }
 
         companion object{
-            fun create(parent: ViewGroup) : MemoViewHolder{
+            fun create(parent: ViewGroup) : MemoViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.memo, parent, false)
                 return MemoViewHolder(view)
             }

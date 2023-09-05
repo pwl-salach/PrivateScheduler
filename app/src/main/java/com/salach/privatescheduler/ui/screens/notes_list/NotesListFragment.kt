@@ -1,4 +1,4 @@
-package com.salach.privatescheduler.ui.notes_list
+package com.salach.privatescheduler.ui.screens.notes_list
 
 import android.os.Bundle
 import android.text.Editable
@@ -38,7 +38,7 @@ class NotesListFragment : Fragment() {
         _binding = FragmentToDoListsBinding.inflate(inflater, container, false)
 
         val adapter = NotesListAdapter()
-        adapter.setOnItemClickListener(object: NotesListAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object: NotesListAdapter.OnItemClickListener {
             override fun onItemClick(id: Int) {
                 val args = Bundle()
                 args.putInt("listId", id)

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="Start Date" />
 
         <TextView
             android:id="@+id/picked_start_date"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="Time" />
 
         <TextView
             android:id="@+id/picked_time"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="Switch" />
+        android:text="Periodic" />
 
     <LinearLayout
         android:id="@+id/period_layout"
@@ -67,6 +67,13 @@
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Every" />
 
             <EditText
                 android:id="@+id/frequency_txt"
@@ -82,12 +89,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Every" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="End Date" />
 
             <TextView
                 android:id="@+id/picked_end_date"
@@ -114,11 +115,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Occurences" />
+
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <com.salach.privatescheduler.ui.parts.DialogButtons
+    <com.salach.privatescheduler.ui.components.DialogButtons
         android:id="@+id/dialog_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </com.salach.privatescheduler.ui.parts.DialogButtons>
+    </com.salach.privatescheduler.ui.components.DialogButtons>
 </LinearLayout>

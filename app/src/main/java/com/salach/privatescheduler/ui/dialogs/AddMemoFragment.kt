@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
 import com.salach.privatescheduler.db.models.Memo
-import com.salach.privatescheduler.ui.note.NoteViewModel
+import com.salach.privatescheduler.ui.screens.note.NoteViewModel
 
 class AddMemoFragment(private val listViewModel: NoteViewModel) : DialogFragment() {
 

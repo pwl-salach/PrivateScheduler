@@ -10,8 +10,8 @@ import androidx.fragment.app.DialogFragment
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Chore
 import com.salach.privatescheduler.structures.Schedule
-import com.salach.privatescheduler.ui.note.NoteViewModel
-import com.salach.privatescheduler.ui.parts.DialogButtons
+import com.salach.privatescheduler.ui.screens.note.NoteViewModel
+import com.salach.privatescheduler.ui.components.DialogButtons
 
 class AddChoreDialog(private val listViewModel: NoteViewModel) : DialogFragment(), SchedulePickerDialogListener {
 

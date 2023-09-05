@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.salach.privatescheduler.R
 import com.salach.privatescheduler.db.models.Note
-import com.salach.privatescheduler.ui.notes_list.ToDoListsViewModel
+import com.salach.privatescheduler.ui.screens.notes_list.ToDoListsViewModel
 
 
 class AddNoteDialog() : DialogFragment() {
